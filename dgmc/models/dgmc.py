@@ -3,6 +3,7 @@ from torch.nn import Sequential as Seq, Linear as Lin, ReLU
 from torch_scatter import scatter_add
 from torch_geometric.utils import to_dense_batch
 from torch_geometric.nn.inits import reset
+import pytorch_lightning as pl
 
 try:
     from pykeops.torch import LazyTensor
@@ -29,7 +30,7 @@ def to_dense(x, mask):
     return out
 
 
-class DGMC(torch.nn.Module):
+class DGMC(pl.LightningModule):
     r"""The *Deep Graph Matching Consensus* module which first matches nodes
     locally via a graph neural network :math:`\Psi_{\theta_1}`, and then
     updates correspondence scores iteratively by reaching for neighborhood
